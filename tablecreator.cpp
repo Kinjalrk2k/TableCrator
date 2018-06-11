@@ -631,7 +631,7 @@ void print_array_table(position start, double arr[size][size], int rownum, int c
 }
 
 
-/*  SAMPLE MAIN for testing the above functions */
+/*  SAMPLE MAIN for testing the above functions
 int main()
 {
     //  declaring the starting position and assigning the required position
@@ -743,3 +743,4 @@ int main()
 
     _getch();
 }
+*/
