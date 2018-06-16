@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iomanip>
+#include <fstream>
 #include <math.h>
 
 #define size 256
@@ -36,7 +37,7 @@ enum borders
 };
 
 /*  this function is used to draw a table with the given specifications using the standard borders  */
-void drawtable_stdborder(position start,int collen[size],int colnum, int rownum)
+void drawtable_stdborder(position &start,int collen[size],int colnum, int rownum)
 {
     position d;
 
@@ -117,10 +118,12 @@ void drawtable_stdborder(position start,int collen[size],int colnum, int rownum)
     stop.x=start.x;
     stop.y=(rownum*2)+1+start.y;
     gotoxy(stop);
+
+    start=stop;
 }
 
 /*  this function is used to draw a table with the given specifications using double borders throughout  */
-void drawtable_doubleborder(position start,int collen[size],int colnum, int rownum)
+void drawtable_doubleborder(position &start,int collen[size],int colnum, int rownum)
 {
     position d;
 
@@ -201,10 +204,12 @@ void drawtable_doubleborder(position start,int collen[size],int colnum, int rown
     stop.x=start.x;
     stop.y=(rownum*2)+1+start.y;
     gotoxy(stop);
+
+    start=stop;
 }
 
 /*  this function is used to draw a table with the given specifications using double external borders only  */
-void drawtable_extborder(position start,int collen[size],int colnum, int rownum)
+void drawtable_extborder(position &start,int collen[size],int colnum, int rownum)
 {
     position d;
 
@@ -287,9 +292,11 @@ void drawtable_extborder(position start,int collen[size],int colnum, int rownum)
     stop.x=start.x;
     stop.y=(rownum*2)+1+start.y;
     gotoxy(stop);
+
+    start=stop;
 }
 
-void drawtable(position start,int collen[size],int colnum, int rownum, borders b)
+void drawtable(position &start,int collen[size],int colnum, int rownum, borders b)
 {
     switch(b)
     {
@@ -308,7 +315,7 @@ void drawtable(position start,int collen[size],int colnum, int rownum, borders b
 }
 
 /*  this function is used to fill a row with string values in each cell */
-void fillrow(position start, char fills[size][size], int collen[size], int colnum, int rownum, int rowid)
+void fillrow(position &start, char fills[size][size], int collen[size], int colnum, int rownum, int rowid)
 {
     position p;
 
@@ -327,16 +334,10 @@ void fillrow(position start, char fills[size][size], int collen[size], int colnu
         cout<<std::setw(collen[i]-1)<<fills[i];
         p.x+=(collen[i]+1);
     }
-
-    position stop;
-
-    stop.x=start.x;
-    stop.y=(rownum*2)+1+start.y;
-    gotoxy(stop);
 }
 
 /*  this function is used to fill a row with integer values in each cell */
-void fillrow(position start, int fills[size], int collen[size], int colnum, int rownum, int rowid)
+void fillrow(position &start, int fills[size], int collen[size], int colnum, int rownum, int rowid)
 {
     position p;
 
@@ -361,10 +362,12 @@ void fillrow(position start, int fills[size], int collen[size], int colnum, int 
     stop.x=start.x;
     stop.y=(rownum*2)+3+start.y;
     gotoxy(stop);
+
+    start=stop;
 }
 
 /*  this function is used to fill a row with float point double precision values in each cell */
-void fillrow(position start, double fills[size], int collen[size], int colnum, int rownum, int rowid)
+void fillrow(position &start, double fills[size], int collen[size], int colnum, int rownum, int rowid)
 {
     position p;
 
@@ -383,16 +386,10 @@ void fillrow(position start, double fills[size], int collen[size], int colnum, i
         cout<<std::setw(collen[i]-1)<<fills[i];
         p.x+=(collen[i]+1);
     }
-
-    position stop;
-
-    stop.x=start.x;
-    stop.y=(rownum*2)+3+start.y;
-    gotoxy(stop);
 }
 
 /*  this function is used to fill a column with string values in each cell */
-void fillcol(position start, char fills[size][size], int collen[size], int colnum, int rownum, int colid)
+void fillcol(position &start, char fills[size][size], int collen[size], int colnum, int rownum, int colid)
 {
     position p;
 
@@ -416,16 +413,10 @@ void fillcol(position start, char fills[size][size], int collen[size], int colnu
         cout<<std::setw(collen[colid]-1)<<fills[i]; //look into it
         p.y+=2;
     }
-
-    position stop;
-
-    stop.x=start.x;
-    stop.y=(rownum*2)+3+start.y;
-    gotoxy(stop);
 }
 
 /*  this function is used to fill a column with integer values in each cell */
-void fillcol(position start, int fills[size], int collen[size], int colnum, int rownum, int colid)
+void fillcol(position &start, int fills[size], int collen[size], int colnum, int rownum, int colid)
 {
     position p;
 
@@ -449,16 +440,10 @@ void fillcol(position start, int fills[size], int collen[size], int colnum, int 
         cout<<std::setw(collen[colid]-1)<<fills[i]; //look into it
         p.y+=2;
     }
-
-    position stop;
-
-    stop.x=start.x;
-    stop.y=(rownum*2)+3+start.y;
-    gotoxy(stop);
 }
 
 /*  this function is used to fill a column with float point double precision values in each cell */
-void fillcol(position start, double fills[size], int collen[size], int colnum, int rownum, int colid)
+void fillcol(position &start, double fills[size], int collen[size], int colnum, int rownum, int colid)
 {
     position p;
 
@@ -482,12 +467,6 @@ void fillcol(position start, double fills[size], int collen[size], int colnum, i
         cout<<std::setw(collen[colid]-1)<<fills[i]; //look into it
         p.y+=2;
     }
-
-    position stop;
-
-    stop.x=start.x;
-    stop.y=(rownum*2)+3+start.y;
-    gotoxy(stop);
 }
 
 /* this function calculates the number of digits in a integer number    */
@@ -577,7 +556,7 @@ void get_collen_colfill(double fills[size], int rownum, int &collen)
 }
 
 /*  a first hand ready-made function to print an array with integer values in a table   */
-void print_array_table(position start, int arr[size][size], int rownum, int colnum, borders b)
+void print_array_table(position &start, int arr[size][size], int rownum, int colnum, borders b)
 {
     gotoxy(start);
     int collen[size]={0};
@@ -604,7 +583,7 @@ void print_array_table(position start, int arr[size][size], int rownum, int coln
 }
 
 /*  a first hand ready-made function to print an array with floating point double precision values in a table   */
-void print_array_table(position start, double arr[size][size], int rownum, int colnum, borders b)
+void print_array_table(position &start, double arr[size][size], int rownum, int colnum, borders b)
 {
     gotoxy(start);
     int collen[size]={0};
@@ -630,7 +609,222 @@ void print_array_table(position start, double arr[size][size], int rownum, int c
         fillrow(start, arr[k],collen, colnum, rownum, k);
 }
 
+void table_cover(position &start, char title[size], int len, int wid, borders b)
+{
+    gotoxy(start);
 
+    position left;
+    left=start;
+    position right;
+
+    right.x=start.x+len+1;
+    right.y=start.y;
+
+    switch(b)
+    {
+    case DOUB:
+        {
+            cout<<(char)201;
+            cout<<title;
+            for(int i=0; i<(len-(strlen(title))); i++)
+                cout<<(char)205;
+            cout<<(char)187;
+
+            left.y++;
+            right.y++;
+
+            for(int i=0; i<wid; i++)
+            {
+                gotoxy(left);   cout<<(char)186;
+                gotoxy(right);  cout<<(char)186;
+
+                left.y++;
+                right.y++;
+            }
+
+            gotoxy(left);
+
+            cout<<(char)200;
+            for(int i=0; i<len; i++)
+                cout<<(char)205;
+            cout<<(char)188;
+        }
+        break;
+
+    case STD:
+        {
+            cout<<(char)218;
+            cout<<title;
+            for(int i=0; i<(len-(strlen(title))); i++)
+                cout<<(char)196;
+            cout<<(char)191;
+
+            left.y++;
+            right.y++;
+
+            for(int i=0; i<wid; i++)
+            {
+                gotoxy(left);   cout<<(char)179;
+                gotoxy(right);  cout<<(char)179;
+
+                left.y++;
+                right.y++;
+            }
+
+            gotoxy(left);
+
+            cout<<(char)192;
+            for(int i=0; i<len; i++)
+                cout<<(char)196;
+            cout<<(char)217;
+        }
+        break;
+    }
+
+    position stop;
+
+    stop.x=start.x;
+    stop.y=(wid)+3+start.y;
+    gotoxy(stop);
+
+    start=stop;
+}
+
+void table_cover(position &start, char title[size], int collen[size], int colnum, int rownum, borders b)
+{
+    int len=0;
+    for(int i=0; i<colnum; i++)
+        len+=collen[i];
+
+    len+=(colnum+1);
+
+    int wid=(rownum*2)+1;
+
+    gotoxy(start);
+
+    position left;
+    left=start;
+    position right;
+
+    right.x=start.x+len+1;
+    right.y=start.y;
+
+    switch(b)
+    {
+    case DOUB:
+        {
+            cout<<(char)201;
+            cout<<title;
+            for(int i=0; i<(len-(strlen(title))); i++)
+                cout<<(char)205;
+            cout<<(char)187;
+
+            left.y++;
+            right.y++;
+
+            for(int i=0; i<wid; i++)
+            {
+                gotoxy(left);   cout<<(char)186;
+                gotoxy(right);  cout<<(char)186;
+
+                left.y++;
+                right.y++;
+            }
+
+            gotoxy(left);
+
+            cout<<(char)200;
+            for(int i=0; i<len; i++)
+                cout<<(char)205;
+            cout<<(char)188;
+        }
+        break;
+
+    case STD:
+        {
+            cout<<(char)218;
+            cout<<title;
+            for(int i=0; i<(len-(strlen(title))); i++)
+                cout<<(char)196;
+            cout<<(char)191;
+
+            left.y++;
+            right.y++;
+
+            for(int i=0; i<wid; i++)
+            {
+                gotoxy(left);   cout<<(char)179;
+                gotoxy(right);  cout<<(char)179;
+
+                left.y++;
+                right.y++;
+            }
+
+            gotoxy(left);
+
+            cout<<(char)192;
+            for(int i=0; i<len; i++)
+                cout<<(char)196;
+            cout<<(char)217;
+        }
+        break;
+    }
+
+    position stop;
+
+    stop.x=start.x;
+    stop.y=(rownum*2)+6+start.y;
+    gotoxy(stop);
+
+    start=stop;
+}
+
+void data_block(position &start, char title[size], char body[size][size], int rownum, borders b)
+{
+    position p=start;
+
+    int len=0;
+    for(int i=0; i<rownum; i++)
+    {
+        if(strlen(body[i])>len)
+            len=strlen(body[i]);
+    }
+
+    int wid=rownum;
+
+    table_cover(start, title, len, wid, b);
+
+    p.x++;
+    p.y++;
+
+    gotoxy(p);
+
+    for(int i=0; i<rownum; i++)
+    {
+        cout<<body[i];
+        p.y++;
+        gotoxy(p);
+    }
+}
+
+void data_block(position &start, char title[size], char body[size][size], int len, int wid, borders b)
+{
+    position p=start;
+
+    table_cover(start, title, len, wid, b);
+
+    p.x++;
+    p.y++;
+
+    gotoxy(p);
+
+    for(int i=0; i<wid; i++)
+    {
+        cout<<body[i];
+        p.y++;
+        gotoxy(p);
+    }
+}
 /*  SAMPLE MAIN for testing the above functions
 int main()
 {
@@ -638,6 +832,7 @@ int main()
     position start;
     start.x=3;
     start.y=5;
+    position start2=start;
 
     //  declaring and initializing colnum and rownum
     int colnum=8;
@@ -664,6 +859,17 @@ int main()
     for(int k=0; k<4; k++)
         get_collen_rowfill(cell[k], colnum, collen);
 
+
+    // drawing a table with double external borders
+    drawtable(start, collen, colnum, 1, EXT);
+    _getch();
+
+    //  printing a row of "fills" at the first row position
+    fillrow(start2, fills, collen, colnum, 1, 0);
+
+    _getch();
+
+    start2=start;
     // drawing a table with ordinary borders
     drawtable(start, collen, colnum, rownum, STD);
     _getch();
@@ -672,16 +878,18 @@ int main()
     drawtable(start, collen, colnum, rownum, DOUB);
     _getch();
 
+    start2=start;
     // drawing a table with double external borders
     drawtable(start, collen, colnum, rownum, EXT);
     _getch();
 
+    position start3=start2;
     //  printing a row of "fills" at the first row position
-    fillrow(start, fills, collen, colnum, rownum, 0);
+    fillrow(start2, fills, collen, colnum, rownum, 0);
 
     // loop to print an array row-by-row from the second row position
     for(int k=0; k<4; k++)
-        fillrow(start, cell[k],collen, colnum, rownum-1, k+1);
+        fillrow(start3, cell[k],collen, colnum, rownum-1, k+1);
 
     _getch();
 
@@ -741,6 +949,9 @@ int main()
     _end.y=34;
     gotoxy(_end);
 
-    _getch();
+    start.x=0;
+    start.y=34;
+
+
 }
 */
