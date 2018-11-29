@@ -1,3 +1,5 @@
+#ifndef TABLECREATOR_H
+#define TABLECREATOR_H
 #include <iostream>
 #include <conio.h>
 #include <windows.h>
@@ -14,6 +16,8 @@ using namespace std;
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 COORD CursorPosition;
 
+#ifndef GOTOXY_POS
+#define GOTOXY_POS
 struct position	//	structure of position, used for specifying the cursor position
 {
 	int x,y;
@@ -24,6 +28,7 @@ void gotoxy(position pos)
 	CursorPosition.Y = pos.y; // Locates Row
 	SetConsoleCursorPosition(console,CursorPosition); // Sets position for next thing to be printed
 }
+#endif
 
 //  enumerated data-type for the borders
 /*
@@ -955,3 +960,5 @@ int main()
 
 }
 */
+
+#endif
